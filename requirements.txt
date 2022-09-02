@@ -1,0 +1,13 @@
+httpx~=0.23.0
+aiofiles~=0.8.0
+bs4~=0.0.1
+beautifulsoup4~=4.11.1
+colorama~=0.4.5
+aiohttp~=3.7.4.post0
+discord~=1.7.3
+uvicorn~=0.18.1
+fastapi~=0.78.0
+pydantic~=1.9.1
+anyio~=3.6.1
+Faker~=13.14.0
+starlette~=0.19.1

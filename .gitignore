@@ -1,0 +1,8 @@
+logs
+.idea
+**__pycache__**
+src.html
+src.json
+build
+dist
+*.spec
