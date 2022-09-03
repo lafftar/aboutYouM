@@ -9,9 +9,10 @@ from utils.terminal import update_title
 
 LOGGING_LEVEL = logging.DEBUG  # @todo - change this in production to .INFO, maybe
 
+
 class Log:
     def __init__(self, fmt: str = '[ACC CREATE]', do_update_title: bool = True):
-        self.fmt = fmt.rjust(15)
+        self.fmt = fmt.rjust(35)
         self.do_update_title = do_update_title
 
     def update_title(self, text):
@@ -56,8 +57,9 @@ def logger(error_logs_path: str = 'logs/error_logs',
            all_logs_path: str = 'logs/logs',
            time_based_logs: bool = False):
     # creating custom logger
-    logger = logging.getLogger(__name__)
-    logger.setLevel(level=logging.DEBUG)
+    _logger = logging.getLogger(__name__)
+    _logger.setLevel(level=logging.DEBUG)
+
     # creating handlers
     stream_handler = logging.StreamHandler()
     if time_based_logs:
@@ -85,13 +87,13 @@ def logger(error_logs_path: str = 'logs/error_logs',
     file_handler.setFormatter(file_format)
     error_handler.setFormatter(file_format)
 
-    if not logger.handlers:
-        # add handlers to logger
-        logger.addHandler(stream_handler)
-        logger.addHandler(file_handler)
-        logger.addHandler(error_handler)
+    if not _logger.handlers:
+        # add handlers to _logger
+        _logger.addHandler(stream_handler)
+        _logger.addHandler(file_handler)
+        _logger.addHandler(error_handler)
 
-    return logger
+    return _logger
 
 
 if __name__ == "__main__":

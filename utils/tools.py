@@ -2,6 +2,7 @@ import asyncio
 from datetime import datetime
 from json import dumps, JSONDecodeError, loads
 from os import makedirs
+from pprint import pprint, pformat
 from typing import Union
 
 import aiofiles
@@ -64,10 +65,13 @@ def print_req_info(res: httpx.Response, print_headers: bool = False, print_body:
     resp_str += '\n'
 
     if print_body:
-        try:
-            resp_str += f"Resp Body (JSON): \n{color_wrap(Fore.BLACK + dumps(res.json(), indent=4))}"
-        except JSONDecodeError:
-            resp_str += f"Resp Body (HTML): \n{color_wrap(Fore.BLACK + BeautifulSoup(res.text, 'lxml').prettify())}"
+        if res.headers.get('Content-Type') == 'text/plain':
+            resp_str += f"Resp Body (TEXT): {color_wrap(Fore.BLACK + pformat(res.text, indent=4))}"
+        else:
+            try:
+                resp_str += f"Resp Body (JSON): \n{color_wrap(Fore.BLACK + dumps(res.json(), indent=4))}"
+            except JSONDecodeError:
+                resp_str += f"Resp Body (HTML): \n{color_wrap(Fore.BLACK + BeautifulSoup(res.text, 'lxml').prettify())}"
     resp_str += '\n|\n|'
 
     sep_ = '-' * 10

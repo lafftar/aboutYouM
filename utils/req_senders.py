@@ -12,6 +12,7 @@ from utils.tls_launcher import TLSLauncher
 from utils.tools import print_req_info
 
 
+# @todo - I have a req_sender base class, this whole file is due for removal.
 async def send_req(req_obj: functools.partial, num_tries: int = 5) -> \
         httpx.Response | aiohttp.ClientResponse | None:
     """

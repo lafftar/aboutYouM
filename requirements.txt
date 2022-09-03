@@ -11,3 +11,8 @@ pydantic~=1.9.1
 anyio~=3.6.1
 Faker~=13.14.0
 starlette~=0.19.1
+
+
+# these weren't caught by pycharm
+lxml
+sqlalchemy

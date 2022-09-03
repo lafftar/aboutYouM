@@ -6,3 +6,4 @@ src.json
 build
 dist
 *.spec
+*.db
