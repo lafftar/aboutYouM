@@ -1,16 +1,11 @@
-import asyncio
-from datetime import datetime
 from json import dumps, JSONDecodeError, loads
-from os import makedirs
-from pprint import pprint, pformat
+from pprint import pformat
 from typing import Union
 
-import aiofiles
 import httpx
 from bs4 import BeautifulSoup
 from colorama import Fore, Back, Style
 
-from utils.custom_logger import Log
 from utils.root import get_project_root
 from utils.terminal import color_wrap
 
@@ -88,12 +83,3 @@ def print_req_info(res: httpx.Response, print_headers: bool = False, print_body:
     final += f'\n{boundary}'
     print(final)
     return final
-
-
-log: Log = Log('[PW REQ PRINTER]', do_update_title=False)
-
-sem: asyncio.Semaphore = asyncio.Semaphore(1)
-async def write(file: str, body: str):
-    async with sem:
-        async with aiofiles.open(file, 'a') as file:
-            await file.write(body)

@@ -20,6 +20,12 @@ class Test:
         self.log.info('[TEST GOOD]')
 
 
+# @todo
+"""
+- Proxy (3proxy or python native), use solely to measure data sent through network. 
+"""
+
+
 # Central Request Handler. All requests should go through this.
 class ReqSender(Test):
     log: Log = Log('[REQ SENDER]', do_update_title=False)

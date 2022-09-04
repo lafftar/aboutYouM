@@ -1,0 +1,1008 @@
+# Nmap 7.80 scan initiated Sat Sep  3 18:03:46 2022 as: nmap --stats-every 3 -sV -sC -O --osscan-guess -p 1-65535 -A -oN nmap-aboutyou.de aboutyou.de
+Nmap scan report for aboutyou.de (172.64.150.124)
+Host is up (0.0012s latency).
+Other addresses for aboutyou.de (not scanned): 2606:4700:4400::ac40:967c 2606:4700:4400::6812:2584 104.18.37.132
+Not shown: 65522 filtered ports
+PORT     STATE SERVICE       VERSION
+80/tcp   open  http          cloudflare
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2e4bffa1f6-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2b7b37541f-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2b98193ff7-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   X11Probe: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://aboutyou.de/
+443/tcp  open  ssl/https     cloudflare
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 151
+|     Connection: close
+|     CF-RAY: 74506a529b7b366a-YYZ
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 151
+|     Connection: close
+|     CF-RAY: 74506a512e67a1ff-YYZ
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 403 Forbidden
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 151
+|     Connection: close
+|     CF-RAY: 74506a51486753e9-YYZ
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:49 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   tor-versions: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://www.aboutyou.de/dein-shop
+| ssl-cert: Subject: commonName=sni.cloudflaressl.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:aboutyou.de, DNS:*.aboutyou.de, DNS:sni.cloudflaressl.com
+| Not valid before: 2022-02-15T00:00:00
+|_Not valid after:  2023-02-15T23:59:59
+2052/tcp open  clearvisn?
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4ac825f97d-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4adf14a1e1-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+2053/tcp open  ssl/http      nginx
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://www.aboutyou.de:2053/dein-shop
+| ssl-cert: Subject: commonName=sni.cloudflaressl.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:aboutyou.de, DNS:*.aboutyou.de, DNS:sni.cloudflaressl.com
+| Not valid before: 2022-02-15T00:00:00
+|_Not valid after:  2023-02-15T23:59:59
+2082/tcp open  infowave?
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4ad85ca23b-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4c3a85a1ea-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+2083/tcp open  ssl/http      nginx
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://www.aboutyou.de:2083/dein-shop
+| ssl-cert: Subject: commonName=sni.cloudflaressl.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:aboutyou.de, DNS:*.aboutyou.de, DNS:sni.cloudflaressl.com
+| Not valid before: 2022-02-15T00:00:00
+|_Not valid after:  2023-02-15T23:59:59
+2086/tcp open  gnunet?
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4adde75401-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4c29a8a1f9-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+2087/tcp open  ssl/http      nginx
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://www.aboutyou.de:2087/dein-shop
+| ssl-cert: Subject: commonName=sni.cloudflaressl.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:aboutyou.de, DNS:*.aboutyou.de, DNS:sni.cloudflaressl.com
+| Not valid before: 2022-02-15T00:00:00
+|_Not valid after:  2023-02-15T23:59:59
+2095/tcp open  nbx-ser?
+| fingerprint-strings: 
+|   DNSStatusRequestTCP: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   DNSVersionBindReqTCP, RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4add1c548b-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4c3e8da1e7-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+2096/tcp open  ssl/http      nginx
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://www.aboutyou.de:2096/dein-shop
+| ssl-cert: Subject: commonName=sni.cloudflaressl.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:aboutyou.de, DNS:*.aboutyou.de, DNS:sni.cloudflaressl.com
+| Not valid before: 2022-02-15T00:00:00
+|_Not valid after:  2023-02-15T23:59:59
+8080/tcp open  http-proxy    cloudflare
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2bbaa8a22e-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2b78675413-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2b9d89a1da-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   Socks4, Socks5: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://aboutyou.de/
+8443/tcp open  ssl/https-alt cloudflare
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP, RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:49 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   FourOhFourRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 151
+|     Connection: close
+|     CF-RAY: 74506a515d87548b-YYZ
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 151
+|     Connection: close
+|     CF-RAY: 74506a513f5a543d-YYZ
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 403 Forbidden
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:44 GMT
+|     Content-Type: text/html
+|     Content-Length: 151
+|     Connection: close
+|     CF-RAY: 74506a51499aa1e1-YYZ
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+|_http-server-header: cloudflare
+|_http-title: Did not follow redirect to https://www.aboutyou.de:8443/dein-shop
+| ssl-cert: Subject: commonName=sni.cloudflaressl.com/organizationName=Cloudflare, Inc./stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:aboutyou.de, DNS:*.aboutyou.de, DNS:sni.cloudflaressl.com
+| Not valid before: 2022-02-15T00:00:00
+|_Not valid after:  2023-02-15T23:59:59
+8880/tcp open  cddbp-alt?
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP, RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Server: cloudflare
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     CF-RAY: -
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   FourOhFourRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2b9cbaa21a-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:38 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a2b7962f995-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Sat, 03 Sep 2022 18:05:43 GMT
+|     Content-Type: text/html
+|     Content-Length: 155
+|     Connection: close
+|     Server: cloudflare
+|     CF-RAY: 74506a4afb6aa214-YYZ
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>cloudflare</center>
+|     </body>
+|_    </html>
+9 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port80-TCP:V=7.80%I=7%D=9/3%Time=63139772%P=x86_64-pc-linux-gnu%r(GetRe
+SF:quest,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\x2
+SF:0Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type:\x20text/html\r\nConten
+SF:t-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\nCF
+SF:-RAY:\x2074506a2b7b37541f-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Bad\
+SF:x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Reques
+SF:t</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html
+SF:>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\
+SF:x20Sat,\x2003\x20Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type:\x20tex
+SF:t/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20
+SF:cloudflare\r\nCF-RAY:\x2074506a2b98193ff7-YYZ\r\n\r\n<html>\r\n<head><t
+SF:itle>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\
+SF:x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n<
+SF:/body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\x2
+SF:0Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20R
+SF:equest</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n<
+SF:/html>\r\n")%r(X11Probe,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nServ
+SF:er:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:38\x20
+SF:GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnecti
+SF:on:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad\x
+SF:20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request
+SF:</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>
+SF:\r\n")%r(FourOhFourRequest,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nD
+SF:ate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type:\x
+SF:20text/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer
+SF::\x20cloudflare\r\nCF-RAY:\x2074506a2e4bffa1f6-YYZ\r\n\r\n<html>\r\n<he
+SF:ad><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1
+SF:>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>
+SF:\r\n</body>\r\n</html>\r\n")%r(RPCCheck,13C,"HTTP/1\.1\x20400\x20Bad\x2
+SF:0Request\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022
+SF:\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x2
+SF:0155\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><ti
+SF:tle>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x
+SF:20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</
+SF:body>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port443-TCP:V=7.80%T=SSL%I=7%D=9/3%Time=63139778%P=x86_64-pc-linux-gnu%
+SF:r(GetRequest,149,"HTTP/1\.1\x20403\x20Forbidden\r\nServer:\x20cloudflar
+SF:e\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20GMT\r\nContent-T
+SF:ype:\x20text/html\r\nContent-Length:\x20151\r\nConnection:\x20close\r\n
+SF:CF-RAY:\x2074506a512e67a1ff-YYZ\r\n\r\n<html>\r\n<head><title>403\x20Fo
+SF:rbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forbidden</h1></
+SF:center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n")%
+SF:r(HTTPOptions,149,"HTTP/1\.1\x20403\x20Forbidden\r\nServer:\x20cloudfla
+SF:re\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20GMT\r\nContent-
+SF:Type:\x20text/html\r\nContent-Length:\x20151\r\nConnection:\x20close\r\
+SF:nCF-RAY:\x2074506a51486753e9-YYZ\r\n\r\n<html>\r\n<head><title>403\x20F
+SF:orbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forbidden</h1><
+SF:/center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n")
+SF:%r(FourOhFourRequest,149,"HTTP/1\.1\x20403\x20Forbidden\r\nServer:\x20c
+SF:loudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20GMT\r\nC
+SF:ontent-Type:\x20text/html\r\nContent-Length:\x20151\r\nConnection:\x20c
+SF:lose\r\nCF-RAY:\x2074506a529b7b366a-YYZ\r\n\r\n<html>\r\n<head><title>4
+SF:03\x20Forbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forbidde
+SF:n</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html
+SF:>\r\n")%r(tor-versions,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nServe
+SF:r:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20G
+SF:MT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnectio
+SF:n:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad\x2
+SF:0Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request<
+SF:/h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\
+SF:r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\x20Bad\x20Request</t
+SF:itle></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></cente
+SF:r>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n")%r(RPC
+SF:Check,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nServer:\x20cloudflare\
+SF:r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:49\x20GMT\r\nContent-Typ
+SF:e:\x20text/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nCF
+SF:-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad\x20Request</title><
+SF:/head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></center>\r\n
+SF:<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port2052-TCP:V=7.80%I=7%D=9/3%Time=63139777%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\n
+SF:CF-RAY:\x2074506a4ac825f97d-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Ba
+SF:d\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Requ
+SF:est</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</ht
+SF:ml>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate
+SF::\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20t
+SF:ext/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x
+SF:20cloudflare\r\nCF-RAY:\x2074506a4adf14a1e1-YYZ\r\n\r\n<html>\r\n<head>
+SF:<title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>40
+SF:0\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\
+SF:n</body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(RPCCheck,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nSe
+SF:rver:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x
+SF:20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnec
+SF:tion:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad
+SF:\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Reque
+SF:st</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</htm
+SF:l>\r\n")%r(DNSVersionBindReqTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Request
+SF:\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:0
+SF:5:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\n
+SF:Connection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(DNSStatusRequestTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2
+SF:018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x2015
+SF:5\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title
+SF:>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20B
+SF:ad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</bod
+SF:y>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port2082-TCP:V=7.80%I=7%D=9/3%Time=63139777%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\n
+SF:CF-RAY:\x2074506a4ad85ca23b-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Ba
+SF:d\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Requ
+SF:est</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</ht
+SF:ml>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate
+SF::\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20t
+SF:ext/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x
+SF:20cloudflare\r\nCF-RAY:\x2074506a4c3a85a1ea-YYZ\r\n\r\n<html>\r\n<head>
+SF:<title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>40
+SF:0\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\
+SF:n</body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(RPCCheck,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nSe
+SF:rver:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x
+SF:20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnec
+SF:tion:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad
+SF:\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Reque
+SF:st</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</htm
+SF:l>\r\n")%r(DNSVersionBindReqTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Request
+SF:\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:0
+SF:5:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\n
+SF:Connection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(DNSStatusRequestTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2
+SF:018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x2015
+SF:5\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title
+SF:>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20B
+SF:ad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</bod
+SF:y>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port2086-TCP:V=7.80%I=7%D=9/3%Time=63139777%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\n
+SF:CF-RAY:\x2074506a4adde75401-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Ba
+SF:d\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Requ
+SF:est</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</ht
+SF:ml>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate
+SF::\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20t
+SF:ext/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x
+SF:20cloudflare\r\nCF-RAY:\x2074506a4c29a8a1f9-YYZ\r\n\r\n<html>\r\n<head>
+SF:<title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>40
+SF:0\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\
+SF:n</body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(RPCCheck,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nSe
+SF:rver:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x
+SF:20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnec
+SF:tion:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad
+SF:\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Reque
+SF:st</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</htm
+SF:l>\r\n")%r(DNSVersionBindReqTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Request
+SF:\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:0
+SF:5:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\n
+SF:Connection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(DNSStatusRequestTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2
+SF:018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x2015
+SF:5\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title
+SF:>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20B
+SF:ad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</bod
+SF:y>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port2095-TCP:V=7.80%I=7%D=9/3%Time=63139777%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\n
+SF:CF-RAY:\x2074506a4add1c548b-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Ba
+SF:d\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Requ
+SF:est</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</ht
+SF:ml>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate
+SF::\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20t
+SF:ext/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x
+SF:20cloudflare\r\nCF-RAY:\x2074506a4c3e8da1e7-YYZ\r\n\r\n<html>\r\n<head>
+SF:<title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>40
+SF:0\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\
+SF:n</body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(RPCCheck,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nSe
+SF:rver:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x
+SF:20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnec
+SF:tion:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad
+SF:\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Reque
+SF:st</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</htm
+SF:l>\r\n")%r(DNSVersionBindReqTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Request
+SF:\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:0
+SF:5:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\n
+SF:Connection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(DNSStatusRequestTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2
+SF:018:05:44\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x2015
+SF:5\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title
+SF:>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20B
+SF:ad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</bod
+SF:y>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port8080-TCP:V=7.80%I=7%D=9/3%Time=63139772%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\n
+SF:CF-RAY:\x2074506a2b78675413-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Ba
+SF:d\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Requ
+SF:est</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</ht
+SF:ml>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate
+SF::\x20Sat,\x2003\x20Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type:\x20t
+SF:ext/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x
+SF:20cloudflare\r\nCF-RAY:\x2074506a2b9d89a1da-YYZ\r\n\r\n<html>\r\n<head>
+SF:<title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>40
+SF:0\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\
+SF:n</body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\
+SF:x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x2
+SF:0Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\
+SF:n</html>\r\n")%r(FourOhFourRequest,14F,"HTTP/1\.1\x20400\x20Bad\x20Requ
+SF:est\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:38\x20GMT\r\nContent
+SF:-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r
+SF:\nServer:\x20cloudflare\r\nCF-RAY:\x2074506a2bbaa8a22e-YYZ\r\n\r\n<html
+SF:>\r\n<head><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<ce
+SF:nter><h1>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare<
+SF:/center>\r\n</body>\r\n</html>\r\n")%r(Socks5,13C,"HTTP/1\.1\x20400\x20
+SF:Bad\x20Request\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x
+SF:202022\x2018:05:38\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Leng
+SF:th:\x20155\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<he
+SF:ad><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1
+SF:>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>
+SF:\r\n</body>\r\n</html>\r\n")%r(Socks4,13C,"HTTP/1\.1\x20400\x20Bad\x20R
+SF:equest\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x
+SF:2018:05:38\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x201
+SF:55\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><titl
+SF:e>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20
+SF:Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</bo
+SF:dy>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port8443-TCP:V=7.80%T=SSL%I=7%D=9/3%Time=63139778%P=x86_64-pc-linux-gnu
+SF:%r(GetRequest,149,"HTTP/1\.1\x20403\x20Forbidden\r\nServer:\x20cloudfla
+SF:re\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20GMT\r\nContent-
+SF:Type:\x20text/html\r\nContent-Length:\x20151\r\nConnection:\x20close\r\
+SF:nCF-RAY:\x2074506a513f5a543d-YYZ\r\n\r\n<html>\r\n<head><title>403\x20F
+SF:orbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forbidden</h1><
+SF:/center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n")
+SF:%r(HTTPOptions,149,"HTTP/1\.1\x20403\x20Forbidden\r\nServer:\x20cloudfl
+SF:are\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20GMT\r\nContent
+SF:-Type:\x20text/html\r\nContent-Length:\x20151\r\nConnection:\x20close\r
+SF:\nCF-RAY:\x2074506a51499aa1e1-YYZ\r\n\r\n<html>\r\n<head><title>403\x20
+SF:Forbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forbidden</h1>
+SF:</center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n"
+SF:)%r(FourOhFourRequest,149,"HTTP/1\.1\x20403\x20Forbidden\r\nServer:\x20
+SF:cloudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:44\x20GMT\r\n
+SF:Content-Type:\x20text/html\r\nContent-Length:\x20151\r\nConnection:\x20
+SF:close\r\nCF-RAY:\x2074506a515d87548b-YYZ\r\n\r\n<html>\r\n<head><title>
+SF:403\x20Forbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forbidd
+SF:en</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</htm
+SF:l>\r\n")%r(RTSPRequest,9B,"<html>\r\n<head><title>400\x20Bad\x20Request
+SF:</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></ce
+SF:nter>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n")%r(
+SF:RPCCheck,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nServer:\x20cloudfla
+SF:re\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:49\x20GMT\r\nContent-
+SF:Type:\x20text/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\
+SF:nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad\x20Request</titl
+SF:e></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></center>\
+SF:r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n")%r(DNSVer
+SF:sionBindReqTCP,13C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nServer:\x20cl
+SF:oudflare\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:49\x20GMT\r\nCo
+SF:ntent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnection:\x20cl
+SF:ose\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<head><title>400\x20Bad\x20Request
+SF:</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></ce
+SF:nter>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port8880-TCP:V=7.80%I=7%D=9/3%Time=63139772%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nServer:\x20cloudflare\r\n
+SF:CF-RAY:\x2074506a2b7962f995-YYZ\r\n\r\n<html>\r\n<head><title>400\x20Ba
+SF:d\x20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Requ
+SF:est</h1></center>\r\n<hr><center>cloudflare</center>\r\n</body>\r\n</ht
+SF:ml>\r\n")%r(FourOhFourRequest,14F,"HTTP/1\.1\x20400\x20Bad\x20Request\r
+SF:\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:38\x20GMT\r\nContent-Type
+SF::\x20text/html\r\nContent-Length:\x20155\r\nConnection:\x20close\r\nSer
+SF:ver:\x20cloudflare\r\nCF-RAY:\x2074506a2b9cbaa21a-YYZ\r\n\r\n<html>\r\n
+SF:<head><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center>
+SF:<h1>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</cent
+SF:er>\r\n</body>\r\n</html>\r\n")%r(HTTPOptions,14F,"HTTP/1\.1\x20400\x20
+SF:Bad\x20Request\r\nDate:\x20Sat,\x2003\x20Sep\x202022\x2018:05:43\x20GMT
+SF:\r\nContent-Type:\x20text/html\r\nContent-Length:\x20155\r\nConnection:
+SF:\x20close\r\nServer:\x20cloudflare\r\nCF-RAY:\x2074506a4afb6aa214-YYZ\r
+SF:\n\r\n<html>\r\n<head><title>400\x20Bad\x20Request</title></head>\r\n<b
+SF:ody>\r\n<center><h1>400\x20Bad\x20Request</h1></center>\r\n<hr><center>
+SF:cloudflare</center>\r\n</body>\r\n</html>\r\n")%r(RTSPRequest,9B,"<html
+SF:>\r\n<head><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<ce
+SF:nter><h1>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare<
+SF:/center>\r\n</body>\r\n</html>\r\n")%r(RPCCheck,13C,"HTTP/1\.1\x20400\x
+SF:20Bad\x20Request\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\x20Sep
+SF:\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Le
+SF:ngth:\x20155\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html>\r\n<
+SF:head><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<center><
+SF:h1>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare</cente
+SF:r>\r\n</body>\r\n</html>\r\n")%r(DNSVersionBindReqTCP,13C,"HTTP/1\.1\x2
+SF:0400\x20Bad\x20Request\r\nServer:\x20cloudflare\r\nDate:\x20Sat,\x2003\
+SF:x20Sep\x202022\x2018:05:43\x20GMT\r\nContent-Type:\x20text/html\r\nCont
+SF:ent-Length:\x20155\r\nConnection:\x20close\r\nCF-RAY:\x20-\r\n\r\n<html
+SF:>\r\n<head><title>400\x20Bad\x20Request</title></head>\r\n<body>\r\n<ce
+SF:nter><h1>400\x20Bad\x20Request</h1></center>\r\n<hr><center>cloudflare<
+SF:/center>\r\n</body>\r\n</html>\r\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: phone|media device
+Running (JUST GUESSING): Google Android 6.X|7.X (85%), Linux 3.X|4.X (85%)
+OS CPE: cpe:/o:google:android:6 cpe:/o:google:android:7 cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:3.0
+Aggressive OS guesses: Android 6.0 - 7.1.2 (Linux 3.18 - 4.4.1) (85%), Linux 3.0 (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 7 hops
+
+TRACEROUTE (using port 8080/tcp)
+HOP RTT      ADDRESS
+1   ...
+2   0.53 ms  100.100.200.1
+3   1.13 ms  10.83.0.173
+4   1.35 ms  10.83.0.65
+5   0.92 ms  10.83.1.1
+6   14.95 ms cloudflare.ip4.torontointernetxchange.net (206.108.34.208)
+7   0.87 ms  172.64.150.124
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Sep  3 18:06:14 2022 -- 1 IP address (1 host up) scanned in 148.15 seconds

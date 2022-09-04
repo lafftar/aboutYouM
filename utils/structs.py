@@ -8,4 +8,5 @@ class TaskNetworkState:
 
 @dataclass
 class GlobalNetworkState:
+    """"""
     pass
