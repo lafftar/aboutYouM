@@ -1,0 +1,72 @@
+|====================================================================================================
+|----------REQUEST----------
+GET https://api-cloud.aboutyou.de/v1/filters HTTP/1.1
+Host: api-cloud.aboutyou.de
+
+
+|----------RESPONSE----------
+HTTP/1.1 200 OK
+Date: Tue, 13 Sep 2022 17:01:33 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-transform
+Cf-Cache-Status: EXPIRED
+Last-Modified: Tue, 13 Sep 2022 16:45:47 GMT
+Set-Cookie: __cf_bm=Vuik05XFhXH7TVvwohhwtZAa0lV8R6y31uf7YhNuJsw-1663088493-0-AeVHtqC8DPQ2LLQKiwsbqrDuKAcDVYGWOmnMgcRsjkiJCOQ1FTz7SnpmJnqglcsCXFBGYRiWJDMbqkDdzUrbhCo=; path=/; expires=Tue, 13-Sep-22 17:31:33 GMT; domain=.aboutyou.de; HttpOnly; Secure
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+Set-Cookie: __cfruid=a7ba6cd0272c4edd06258f17aa06d52ab015dbde-1663088493; path=/; domain=.aboutyou.de; HttpOnly; Secure; SameSite=None
+Server: cloudflare
+Cf-Ray: 74a27205e8ddcac4-YYZ
+Alt-Svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+Cookie: __cf_bm=Vuik05XFhXH7TVvwohhwtZAa0lV8R6y31uf7YhNuJsw-1663088493-0-AeVHtqC8DPQ2LLQKiwsbqrDuKAcDVYGWOmnMgcRsjkiJCOQ1FTz7SnpmJnqglcsCXFBGYRiWJDMbqkDdzUrbhCo=;__cfruid=a7ba6cd0272c4edd06258f17aa06d52ab015dbde-1663088493;
+Resp Body (JSON): 
+[
+    {
+        "id": 9,
+        "slug": "categoryShopFilterSizes",
+        "name": "Gr\u00f6\u00dfe",
+        "attributeGroupType": "",
+        "type": "attributes"
+    },
+    {
+        "id": 1,
+        "slug": "color",
+        "name": "Suchfarbe",
+        "attributeGroupType": "",
+        "type": "attributes"
+    },
+    {
+        "id": 550,
+        "slug": "brand",
+        "name": "Marke",
+        "attributeGroupType": "",
+        "type": "attributes"
+    },
+    {
+        "id": null,
+        "slug": "prices",
+        "name": "Prices",
+        "attributeGroupType": "computed_attribute",
+        "type": "range"
+    },
+    {
+        "id": null,
+        "slug": "sale",
+        "name": "Sale",
+        "attributeGroupType": "computed_attribute",
+        "type": "boolean"
+    },
+    {
+        "id": null,
+        "slug": "max_savings_percentage",
+        "name": "Savings",
+        "attributeGroupType": "computed_attribute",
+        "type": "range"
+    }
+]
+|
+|
+|History: []
+|====================================================================================================

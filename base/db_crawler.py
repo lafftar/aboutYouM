@@ -35,7 +35,10 @@ class DBCrawler(Test, ReqSender):
         """
         self.req = httpx.Request(
             method="GET",
-            url="http://api.ipify.org"
+            url="https://api-cloud.aboutyou.de/v1/filters",
+            headers={
+                'HOST': 'api-cloud.aboutyou.de'
+            }
         )
         try:
             await self.__aenter__()
