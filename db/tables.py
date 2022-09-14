@@ -44,10 +44,17 @@ class BaseTable(MainDB.Base):
 class Product(BaseTable):
     __tablename__ = 'products'
 
-    _id = Column(String(255), primary_key=True, nullable=False, name='id')
-    product_struct = Column(JSON, unique=False, nullable=True)  # from UserStruct.to_dict()
+    """
+    This is the only `product` struct repr in the repo. All products are this, all list of products are list of this,
+        list of rows in the db.
+        
+    This class is a [[ DIRECT ]] representation of a product in our db, which should be (🤞🏿) an exact replica of the 
+    aboutyou db.
+    """
+    pid = Column(String(255), primary_key=True, nullable=False, name='id')
+    image = Column(String(255), nullable=True)
     dump = Column(JSON, unique=False, nullable=True)
 
-    # ts
+    # ts, these are just when it was added/updated to the local db. ( or maybe global db??? )
     product_added_ts = Column(DATETIME(timezone=True), nullable=True)
     product_updated_ts = Column(DATETIME(timezone=True), nullable=True)
