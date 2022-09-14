@@ -39,6 +39,10 @@ class BaseTable(MainDB.Base):
 
 
 class Product(BaseTable):
+    def __hash__(self):
+        return hash(self.dump)
+
+
     __tablename__ = 'products'
 
     """

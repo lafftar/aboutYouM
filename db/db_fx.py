@@ -37,9 +37,18 @@ class DB:
                         .filter(Product.pid == product.pid) \
                         .first()
                 try:
+                    def _diff():
+                        msg = f'{current_prod_info == product} {current_prod_info} {product}'
+                        # msg = ''
+                        return msg
+
                     if current_prod_info:
-                        current_prod_info.update_from_dict(product.to_dict())
-                        # log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
+                        if current_prod_info != product:
+                            current_prod_info.update_from_dict(product.to_dict())
+                            # log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.{_diff()}'))
+                        else:
+                            log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'No need to update {product.pid} in db.{_diff()}'))
+                            pass
                     else:
                         short_session.add(product)
                         log.debug(color_wrap(Fore.BLUE + f'Added {product.pid} to db.'))
