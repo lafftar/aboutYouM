@@ -1,7 +1,7 @@
 import asyncio
 
-from base.db_crawler import DBCrawler
-from base.req_sender import ReqSender
+from base_classes.db_crawler import DBCrawler
+from base_classes.req_sender import ReqSender
 from utils.custom_logger import Log
 
 

@@ -1,16 +1,13 @@
 import datetime
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import Column, String, JSON, DATETIME
+from sqlalchemy import Column, String, JSON, DATETIME, Integer
 
 from db.base import MainDB
 
 
 class BaseTable(MainDB.Base):
     __abstract__ = True
-
-    # dump - any random stuff i forgot
-    dump = Column(JSON, nullable=True)
 
     def __repr__(self) -> str:
         return '\n' + '\n'.join((f'{key:30s}:  {val}' for key, val in vars(self).items()
@@ -42,12 +39,30 @@ class BaseTable(MainDB.Base):
 
 
 class Product(BaseTable):
+    def __hash__(self):
+        return hash(self.dump)
+
+
     __tablename__ = 'products'
 
-    _id = Column(String(255), primary_key=True, nullable=False, name='id')
-    product_struct = Column(JSON, unique=False, nullable=True)  # from UserStruct.to_dict()
-    dump = Column(JSON, unique=False, nullable=True)
+    """
+    
+    
+    This is the only `product` struct repr in the repo. All products are this, all list of products are list of this,
+        list of rows in the db.
+        
+    This class is a [[ DIRECT ]] representation of a product in our db, which should be (🤞🏿) an exact replica of the 
+    aboutyou db.
+    
+    IF YOU EDIT A PRODUCT OF THIS CLASS, YOU ARE DIRECTLY EDITING THE LOCAL DB.
+    
+    """
+    pid = Column(Integer, primary_key=True, nullable=False)
 
-    # ts
-    product_added_ts = Column(DATETIME(timezone=True), nullable=True)
-    product_updated_ts = Column(DATETIME(timezone=True), nullable=True)
+    # @todo - add these.
+    # ts, these are just when it was added/updated to the local db. ( or maybe global db??? )
+    # product_added_ts = Column(DATETIME(timezone=True), nullable=True)
+    # product_updated_ts = Column(DATETIME(timezone=True), nullable=True)
+
+    # dump - any random stuff i forgot, in this case, the entire product dict
+    dump = Column(JSON, nullable=True)

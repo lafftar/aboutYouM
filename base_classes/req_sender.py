@@ -81,9 +81,11 @@ class ReqSender(Test):
         """
         pass
 
-    async def send_req(self):
-        self.resp = await self.send_httpx_req(c=self.client, req=self.req)
-        print_req_info(self.resp, True, True)
+    async def send_req(self, req: httpx.Request = None):
+        if req:
+            self.resp = await self.send_httpx_req(c=self.client, req=req)
+        else:
+            self.resp = await self.send_httpx_req(c=self.client, req=self.req)
 
         if not self.resp:
             raise Exception("No Response Received.")
