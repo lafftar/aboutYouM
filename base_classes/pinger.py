@@ -15,6 +15,7 @@ from discord import Colour
 
 from utils.custom_logger import Log
 from utils.structs import Product
+from utils.terminal import color_wrap
 from utils.webhook import send_webhook
 
 
@@ -52,7 +53,7 @@ async def ping_new_product(product_json: dict):
         await send_webhook(embed=embed,
                            webhook_url=webhook_url)
 
-    log.debug(f'Sent new product webhook for {product.title}.')
+    log.debug(f'New Product -  {color_wrap(product.title)}')
 
 
 async def ping_updated_product(old_product_json: dict, new_product_json: dict):
@@ -129,4 +130,4 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
         await send_webhook(embed=embed,
                            webhook_url=webhook_url)
 
-    log.debug(f'Sent restock webhook for {new_product.title}.')
+    log.debug(f'Restocked Product -  {color_wrap(new_product.title)}')
