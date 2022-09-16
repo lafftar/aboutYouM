@@ -5,7 +5,7 @@ from random import randint
 
 import httpx
 
-from base.req_sender import ReqSender
+from base_classes.req_sender import ReqSender
 from db.db_fx import DB
 from db.tables import Product
 from utils.custom_logger import Log
@@ -126,8 +126,7 @@ class DBCrawler(Test, ReqSender):
                        f'\n')
 
         # no horror while loops 😭
-        for iter_num in range(_pagination_dict.get('last') + 1):
-            await self.fetch_product()
+        await asyncio.gather(*[self.fetch_product() for _ in range(_pagination_dict.get('last') + 1)])
 
     async def run(self):
         """
