@@ -5,12 +5,14 @@ We need some bulk func eventually, but:
 Like. now.
 """
 import asyncio
+from asyncio import sleep
 
+import sqlalchemy
 from colorama import Fore
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import Session, sessionmaker
 
-from base_classes.db_monitor import ping_new_product
+from base_classes.pinger import ping_new_product, ping_updated_product
 from db.base import MainDB
 from db.tables import Product
 from utils.custom_logger import Log
@@ -40,32 +42,40 @@ class DB:
                     short_session.query(Product) \
                         .filter(Product.pid == product.pid) \
                         .first()
-                try:
 
-                    if product_in_db:
-                        old_prod_json = product_in_db.dump
-                        if product_in_db.dump.get('updatedAt') == product.dump.get('updatedAt'):
-                            # log.debug(
-                            #     color_wrap(Fore.LIGHTMAGENTA_EX + f'No need to update {product.pid} in db.')
-                            # )
-                            pass
-                        else:
-                            product_in_db.update_from_dict(product.to_dict())
-                            log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
+                if product_in_db:
+                    old_prod_json = product_in_db.dump
+
+                    if product_in_db.dump == product.dump:
+                        # log.debug(
+                        #     color_wrap(Fore.LIGHTMAGENTA_EX + f'No need to update {product.pid} in db.')
+                        # )
+                        pass
                     else:
-                        short_session.add(product)
-                        resp = 'NEW'
-                        log.debug(color_wrap(Fore.BLUE + f'Added {product.pid} to db.'))
-                except InvalidRequestError:
-                    log.exception('Error Adding/Updating Account.')
-                    input('Waiting')
+                        product_in_db.update_from_dict(product.to_dict())
+                        resp = 'UPDATED'
+                        log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
+                else:
+                    short_session.add(product)
+                    resp = 'NEW'
+                    log.debug(color_wrap(Fore.BLUE + f'Added {product.pid} to db.'))
 
                 return resp, old_prod_json
 
-        resp, old_prod_json = await asyncio.get_event_loop().run_in_executor(None, _update_product)
-        # ping for new product
-        if resp == 'NEW':
+        _resp, _old_prod_json = None, None
+        for _ in range(5):
+            try:
+                _resp, _old_prod_json = await asyncio.get_event_loop().run_in_executor(None, _update_product)
+                break
+            except sqlalchemy.exc.OperationalError:
+                log.error(f'Database locked when trying to update {product.pid}')
+                await sleep(3)
+
+        # only 2 situations we need to care about
+        if _resp == 'NEW':
             await ping_new_product(product.dump)
+        if _resp == 'UPDATED':
+            await ping_updated_product(old_product_json=_old_prod_json, new_product_json=product.dump)
 
     @staticmethod
     async def return_product(pid: int) -> Product | None:
@@ -92,11 +102,13 @@ class DB:
 
 if __name__ == "__main__":
     from random import randint
-    prod = asyncio.run(DB.return_product(5918925))
+    pid = 5918925
+    prod = asyncio.run(DB.return_product(pid))
+    prod.dump['variants'][0]['stock']['quantity'] = randint(1, 100)
     asyncio.run(
         DB.update_product(
             product=Product(
-                pid=randint(10_000, 20_000),
+                pid=pid,
                 dump=prod.dump
             )
         )

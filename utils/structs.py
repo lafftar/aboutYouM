@@ -17,7 +17,7 @@ class GlobalNetworkState:
 
 @dataclass
 class Variant:
-    pid: int
+    vid: int
     title: str
     stock: int
     atc_link: str = ''
@@ -27,14 +27,14 @@ class Variant:
         """
         From the `variants` key of the main product dict.
         """
-        variants = []
+        variants = {}
         for _dict in list_of_dicts:
-            variants.append(Variant(
-                pid=_dict.get('id'),
-                title='SIZE '
-                      + _dict.get('attributes').get('vendorSize').get('values').get('label'),
+            vid = _dict.get('id')
+            variants[vid] = Variant(
+                vid=vid,
+                title='SIZE ' + _dict.get('attributes').get('vendorSize').get('values').get('label'),
                 stock=_dict.get('stock').get('quantity')
-            ))
+            )
         return variants
 
 
@@ -49,7 +49,7 @@ class Product:
     is_active: bool
     is_sold_out: bool
     image: str
-    variants: list[Variant]
+    variants: dict[int, Variant]
     price: float
     currency: str
 
@@ -92,7 +92,7 @@ class Product:
 
         # dynamic embed fields
         # embed.add_field(name='[TITLE] [STOCK]', inline=False, value='[ATC LINK]')
-        for variant in self.variants:
+        for variant in self.variants.values():
             if variant.stock == 0:
                 continue
             embed.add_field(name=f'[{variant.title}] [{variant.stock}]', inline=True,

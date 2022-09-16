@@ -6,6 +6,7 @@ from utils.custom_logger import Log
 
 log: Log = Log('[DB TEST]')
 
+
 async def test_db_fx():
     # funcs
     pid: int = 1337133713371337
