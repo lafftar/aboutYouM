@@ -25,7 +25,7 @@ async def ping_new_product(product_json: dict):
     ]
 
     # @todo - this is only temporary!
-    for text in ('sneaker', 'shoe', 'nike', 'travis', 'adidas', 'puma', 'dunk'):
+    for text in ('sneaker', 'shoe', 'dunk'):
         if text in product.title.lower():
             webhook_urls.append(
                 'https://discord.com/api/webhooks/1019663978621837402/'

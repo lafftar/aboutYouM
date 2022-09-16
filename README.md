@@ -9,3 +9,4 @@
 ### deployment:
 - $5 vultr server. Just have script up and running for now, make sure retries and monitors are setup.
 
+- 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
