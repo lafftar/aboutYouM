@@ -54,7 +54,7 @@ class DB:
                     else:
                         product_in_db.update_from_dict(product.to_dict())
                         resp = 'UPDATED'
-                        log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
+                        # log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
                 else:
                     short_session.add(product)
                     resp = 'NEW'

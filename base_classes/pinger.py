@@ -13,6 +13,7 @@ from copy import copy
 
 from discord import Colour
 
+from utils.custom_logger import Log
 from utils.structs import Product
 from utils.webhook import send_webhook
 
@@ -21,6 +22,7 @@ BASE_DISCORD_WEBHOOKS = [
         'https://discord.com/api/webhooks/1020054473076375633/'
         'sec7Y3MuSicDZnwJicTTbvffmu1nLS6ywU4dkoop7_NXlts8IMJa8-d_egDNjpBEOFKF'
     ]
+log: Log = Log('[PINGER]', do_update_title=False)
 
 
 async def ping_new_product(product_json: dict):
@@ -49,6 +51,8 @@ async def ping_new_product(product_json: dict):
     for webhook_url in webhook_urls:
         await send_webhook(embed=embed,
                            webhook_url=webhook_url)
+
+    log.debug(f'Sent new product webhook for {product.title}.')
 
 
 async def ping_updated_product(old_product_json: dict, new_product_json: dict):
@@ -100,12 +104,11 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
             line = f'{index}) {line}'
 
         description += f'{line}\n'
-    # print(description)
 
     # send embed
     webhook_urls = copy(BASE_DISCORD_WEBHOOKS)
 
-    # @todo - this is only temporary!
+    # @todo - this is only temporary! turn into fx that just takes embed
     for text in ('sneaker', 'shoe', 'dunk'):
         if text in new_product.title.lower():
             webhook_urls.append(
@@ -125,3 +128,5 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
     for webhook_url in webhook_urls:
         await send_webhook(embed=embed,
                            webhook_url=webhook_url)
+
+    log.debug(f'Sent restock webhook for {new_product.title}.')
