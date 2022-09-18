@@ -104,6 +104,8 @@ async def run():
         except Exception:
             log.exception('HUH')
 
+        print()
+        log.info('Sleeping for 1 hour!! I just scraped like a million PIDs!')
         await sleep(3600)
 
 

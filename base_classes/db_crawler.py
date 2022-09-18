@@ -104,8 +104,7 @@ class DBCrawler(Test, ReqSender):
                 }
             )
 
-            resp = await self.send_req(req=req, client=httpx.AsyncClient(
-                proxies=r'http://thescrapingbook:zv1WIZKndCvriyM6@proxy.packetstream.io:31112'))
+            resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(self.dcs)))
 
             if not resp or resp.status_code == 429:
                 continue
