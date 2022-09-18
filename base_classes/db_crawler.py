@@ -106,6 +106,9 @@ class DBCrawler(Test, ReqSender):
 
             resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(self.dcs)))
 
+            if not resp or resp.status_code == 429:
+                continue
+
             try:
                 _json = resp.json()
             except JSONDecodeError:
@@ -151,18 +154,19 @@ class DBCrawler(Test, ReqSender):
         20345 - cat id
         692 - shop id
         """
-        try:
-            await self.__aenter__()
+        while True:
+            try:
+                await self.__aenter__()
 
-            while True:
-                await self.refresh_pids()
-                self.current_page_num = 0
-                await self.fetch_all_products()
-                await sleep(3)
-        except Exception:
-            self.log.exception('HUH!')
-        finally:
-            await self.__aexit__(None, None, None)
+                while True:
+                    await self.refresh_pids()
+                    self.current_page_num = 0
+                    await self.fetch_all_products()
+                    await sleep(3)
+            except Exception:
+                self.log.exception('HUH!')
+            finally:
+                await self.__aexit__(None, None, None)
 
 
 # Testing
