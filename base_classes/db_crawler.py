@@ -53,8 +53,8 @@ class DBCrawler(Test, ReqSender):
         pids = await DB.return_pids()
         with open(f'{get_project_root()}/program_data/pids.txt') as file:
             _pids = [int(line.strip()) for line in file.readlines()]
-        self.pids = [str(item) for item in set(pids + _pids)][:150]
-        print(self.pids)
+        self.pids = [str(item) for item in set(pids + _pids)]
+        self.log.fmt = f'[DB CRAWLER] [{self.shop_id}] [{len(self.pids)}]'
 
     async def parse_products(self, entities: dict) -> list[Product]:
         """
@@ -82,7 +82,7 @@ class DBCrawler(Test, ReqSender):
             self.current_page_num += 1
             self.log.debug(f'Fetching page #{this_task_page_num}.')
 
-        max_pids = 150  # literally cant send more because of 414 @todo - check if it takes json
+        max_pids = 150  # literally cant send more than 150 because of 414 @todo - check if it takes json
         for pids in [self.pids[x:x+max_pids] for x in range(0, len(self.pids), max_pids)]:
             params = {
                 "ids": ','.join(pids),
