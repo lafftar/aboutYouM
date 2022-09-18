@@ -27,6 +27,15 @@ class DB:
     MainDB.init_tables()
 
     @staticmethod
+    async def return_pids() -> list[int]:
+        def _return_pids():
+            with DB.main_session.begin() as short_session:
+                product_pids: list[tuple[int]] = short_session.query(Product.pid).all()
+                return [pid[0] for pid in product_pids]
+
+        return await asyncio.get_event_loop().run_in_executor(None, _return_pids)
+
+    @staticmethod
     async def update_product(product: Product):
         """
         Will update product or make a new product.
@@ -54,7 +63,7 @@ class DB:
                     else:
                         product_in_db.update_from_dict(product.to_dict())
                         resp = 'UPDATED'
-                        # log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
+                        log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
                 else:
                     short_session.add(product)
                     resp = 'NEW'
@@ -102,14 +111,18 @@ class DB:
 
 if __name__ == "__main__":
     from random import randint
-    pid = 5918925
-    prod = asyncio.run(DB.return_product(pid))
-    prod.dump['variants'][0]['stock']['quantity'] = randint(1, 100)
-    asyncio.run(
-        DB.update_product(
-            product=Product(
-                pid=pid,
-                dump=prod.dump
+
+    def test_update_product():
+        pid = 5918925
+        prod = asyncio.run(DB.return_product(pid))
+        prod.dump['variants'][0]['stock']['quantity'] = randint(1, 100)
+        asyncio.run(
+            DB.update_product(
+                product=Product(
+                    pid=pid,
+                    dump=prod.dump
+                )
             )
         )
-    )
+
+    print(asyncio.run(DB.return_pids()))

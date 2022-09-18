@@ -26,32 +26,43 @@ BASE_DISCORD_WEBHOOKS = [
 log: Log = Log('[PINGER]', do_update_title=False)
 
 
+def add_main_wh(webhook_urls, title):
+    # @todo - this is only temporary!
+    for text in ('sneaker', 'shoe', 'dunk'):
+        if text in title:
+            # webhook_urls.append(
+            #     'https://discord.com/api/webhooks/1019663978621837402/'
+            #     'QsbnlzUJVDLT7VJgvvz7w-f_y88RVeWjbV4WbHfUk4L95RPiYdzLXicDcre37cSDugAe'
+            # )
+            break
+
+
+async def _send_webhook(product: Product, webhook_urls: list[str], title: str, description: str = None):
+    embed = product.to_embed()
+
+    embed.title = title
+
+    embed.url = product.url
+    embed.description = description
+    embed.color = Colour.blurple()
+
+    for webhook_url in webhook_urls:
+        await send_webhook(embed=embed,
+                           webhook_url=webhook_url)
+
+
 async def ping_new_product(product_json: dict):
     product = Product.from_json(product_json)
 
     webhook_urls = copy(BASE_DISCORD_WEBHOOKS)
 
-    # @todo - this is only temporary!
-    for text in ('sneaker', 'shoe', 'dunk'):
-        if text in product.title.lower():
-            webhook_urls.append(
-                'https://discord.com/api/webhooks/1019663978621837402/'
-                'QsbnlzUJVDLT7VJgvvz7w-f_y88RVeWjbV4WbHfUk4L95RPiYdzLXicDcre37cSDugAe'
-            )
-            break
+    add_main_wh(webhook_urls, product.title.lower())
 
-    embed = product.to_embed()
-
-    embed.title = 'New Product!'
+    title = 'New Product!'
     if product.is_sold_out:
-        embed.title += ' (Sold Out)'
+        title += ' (Sold Out)'
 
-    embed.url = product.url
-    embed.color = Colour.teal()
-
-    for webhook_url in webhook_urls:
-        await send_webhook(embed=embed,
-                           webhook_url=webhook_url)
+    await _send_webhook(product, webhook_urls, title)
 
     log.debug(f'New Product -  {color_wrap(product.title)}')
 
@@ -66,11 +77,6 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
     changes = ['**CHANGES**']
     old_product = Product.from_json(old_product_json)
     new_product = Product.from_json(new_product_json)
-
-    # new_product.variants.pop(43816440)
-    # old_product.variants.pop(43816441)
-    # print(old_product)
-    # print(new_product)
 
     # detect new and removed variants
     new_variants = new_product.variants.keys() - old_product.variants.keys()
@@ -109,25 +115,8 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
     # send embed
     webhook_urls = copy(BASE_DISCORD_WEBHOOKS)
 
-    # @todo - this is only temporary! turn into fx that just takes embed
-    for text in ('sneaker', 'shoe', 'dunk'):
-        if text in new_product.title.lower():
-            webhook_urls.append(
-                'https://discord.com/api/webhooks/1019663978621837402/'
-                'QsbnlzUJVDLT7VJgvvz7w-f_y88RVeWjbV4WbHfUk4L95RPiYdzLXicDcre37cSDugAe'
-            )
-            break
+    add_main_wh(webhook_urls, new_product.title.lower())
 
-    embed = new_product.to_embed()
-
-    embed.title = 'Restock!'
-
-    embed.url = new_product.url
-    embed.description = description
-    embed.color = Colour.blurple()
-
-    for webhook_url in webhook_urls:
-        await send_webhook(embed=embed,
-                           webhook_url=webhook_url)
+    await _send_webhook(new_product, webhook_urls, 'Restock!', description)
 
     log.debug(f'Restocked Product -  {color_wrap(new_product.title)}')

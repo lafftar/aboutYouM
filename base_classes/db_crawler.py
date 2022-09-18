@@ -1,7 +1,8 @@
 import asyncio
 from asyncio import sleep, Semaphore
-from json import dumps
-from random import randint
+from json import dumps, JSONDecodeError
+from pprint import pprint
+from random import randint, choice
 
 import httpx
 
@@ -9,6 +10,7 @@ from base_classes.req_sender import ReqSender
 from db.db_fx import DB
 from db.tables import Product
 from utils.custom_logger import Log
+from utils.root import get_project_root
 from utils.tools import print_req_info
 
 
@@ -40,6 +42,19 @@ class DBCrawler(Test, ReqSender):
         self.amt_of_prods_per_page: int = 1000
         self.shop_id: int = 692
         self.log: Log = Log(f'[DB CRAWLER] [{self.shop_id}]', do_update_title=False)
+        self.pids: list = []
+
+    async def refresh_pids(self):
+        """
+        this fetches all the pids from the db, and adds them to the class pids.
+            pids should be updated by `pid_grabber`
+        :return:
+        """
+        pids = await DB.return_pids()
+        with open(f'{get_project_root()}/program_data/pids.txt') as file:
+            _pids = [int(line.strip()) for line in file.readlines()]
+        self.pids = [str(item) for item in set(pids + _pids)][:150]
+        print(self.pids)
 
     async def parse_products(self, entities: dict) -> list[Product]:
         """
@@ -65,23 +80,12 @@ class DBCrawler(Test, ReqSender):
         async with self.sem:
             this_task_page_num = self.current_page_num
             self.current_page_num += 1
-            if randint(1, 3) % 2 == 0:
-                self.log.debug(f'Fetching page #{this_task_page_num}.')
+            self.log.debug(f'Fetching page #{this_task_page_num}.')
 
         params = {
-            "with": "attributes:key(brand|brandLogo|brandAlignment|captchaRequired|name|quantityPerPack|plusSize|"
-                    "colorDetail|sponsorBadge|sponsoredType|maternityNursing|exclusive|genderage|"
-                    "specialSizesProduct|materialStyle|sustainabilityIcons|assortmentType|dROPS|"
-                    "brandCooperationBadge|secondHandType),advancedAttributes:"
-                    "key(materialCompositionTextile|siblings),variants,variants.attributes:"
-                    "key(shopSize|categoryShopFilterSizes|cup|cupsize|vendorSize|length|dimension3|sizeType|sort),"
-                    "variants.lowestPriorPrice,images.attributes:legacy(false):"
-                    "key(imageNextDetailLevel|imageBackground|imageFocus|imageGender|imageType|imageView),"
-                    "priceRange,lowestPriorPrice",
-            "filters[category]": "20202",
-            "sortDir": "asc",
-            "sortScore": "category_scores",
-            "sortChannel": "web_default",
+            "ids": self.pids,
+            "with": "attributes:key(name|brand|colorDetail|vendorSize),variants,price,"
+                    "variants.attributes:key(vendorSize),priceRange",
             "page": f"{self.current_page_num}",
             "perPage": f"{self.amt_of_prods_per_page}",
             "forceNonLegacySuffix": "true",
@@ -98,9 +102,17 @@ class DBCrawler(Test, ReqSender):
             }
         )
 
-        await self.send_req(req=req)
+        resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(self.dcs)))
 
-        await self.parse_products(entities=self.resp.json().get('entities'))
+        try:
+            _json = resp.json()
+        except JSONDecodeError:
+            print_req_info(resp, True, False)
+            return
+
+        await self.parse_products(entities=_json.get('entities'))
+
+        return
 
     async def fetch_all_products(self):
         # eventually launch resilient tasks in the same event loop, hopefully pull and update all product in like,
@@ -127,6 +139,8 @@ class DBCrawler(Test, ReqSender):
 
         # no horror while loops 😭
         await asyncio.gather(*[self.fetch_product() for _ in range(_pagination_dict.get('last') + 1)])
+        await sleep(0.3)
+        print()
 
     async def run(self):
         """
@@ -139,12 +153,10 @@ class DBCrawler(Test, ReqSender):
             await self.__aenter__()
 
             while True:
+                await self.refresh_pids()
                 self.current_page_num = 0
                 await self.fetch_all_products()
-                await sleep(1)
-
-                self.log.info('\n\n\n\nPUT A CRAWL SUMMARY HERE\n\n')
-                await sleep(60)
+                await sleep(3)
         except Exception:
             self.log.exception('HUH!')
         finally:
@@ -154,3 +166,5 @@ class DBCrawler(Test, ReqSender):
 # Testing
 if __name__ == "__main__":
     asyncio.run(DBCrawler().run())
+    # import cProfile
+    # cProfile.run("asyncio.run(DBCrawler().run())")

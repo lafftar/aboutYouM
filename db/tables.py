@@ -45,17 +45,11 @@ class Product(BaseTable):
 
     __tablename__ = 'products'
 
-    """
-    
-    
-    This is the only `product` struct repr in the repo. All products are this, all list of products are list of this,
-        list of rows in the db.
-        
+    """        
     This class is a [[ DIRECT ]] representation of a product in our db, which should be (🤞🏿) an exact replica of the 
     aboutyou db.
     
-    IF YOU EDIT A PRODUCT OF THIS CLASS, YOU ARE DIRECTLY EDITING THE LOCAL DB.
-    
+    IF YOU EDIT A PRODUCT OF THIS CLASS, YOU ARE DIRECTLY EDITING THE LOCAL DB.    
     """
     pid = Column(Integer, primary_key=True, nullable=False)
 

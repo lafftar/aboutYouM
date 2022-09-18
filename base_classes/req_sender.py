@@ -5,6 +5,7 @@ from random import uniform
 import httpx
 
 from utils.custom_logger import Log
+from utils.root import get_project_root
 from utils.structs import GlobalNetworkState
 from utils.tools import print_req_info
 
@@ -30,6 +31,13 @@ class Test:
 class ReqSender(Test):
     log: Log = Log('[REQ SENDER]', do_update_title=False)
     network_state: GlobalNetworkState = GlobalNetworkState()
+
+    with open(f'{get_project_root()}/program_data/proxies.txt') as file:
+        _proxies = [line.strip() for line in file.readlines()]
+    dcs = []
+    for proxy in _proxies:
+        proxy = proxy.split(':')
+        dcs.append(f'http://{proxy[2]}:{proxy[3]}@{proxy[0]}:{proxy[1]}')
 
     def __init__(self):
         self.client: httpx.AsyncClient | None = None
@@ -81,17 +89,22 @@ class ReqSender(Test):
         """
         pass
 
-    async def send_req(self, req: httpx.Request = None):
-        if req:
-            self.resp = await self.send_httpx_req(c=self.client, req=req)
-        else:
-            self.resp = await self.send_httpx_req(c=self.client, req=self.req)
+    async def send_req(self, req: httpx.Request = None, client: httpx.AsyncClient = None) -> httpx.Response:
+        if not client:
+            client = self.client  # to allow for callers to provide their own proxies n stuff
 
-        if not self.resp:
+        if req:
+            resp = await self.send_httpx_req(c=client, req=req)
+        else:
+            resp = await self.send_httpx_req(c=client, req=self.req)
+
+        if not resp:
             raise Exception("No Response Received.")
 
+        self.resp = resp
         anti_bot_tests: list = await self.handle_antibot()
         # if ~any action needed~ -> raise.
+        return resp
 
     async def run(self):
         self.req = httpx.Request(
