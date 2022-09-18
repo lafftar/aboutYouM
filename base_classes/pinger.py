@@ -30,10 +30,10 @@ def add_main_wh(webhook_urls, title):
     # @todo - this is only temporary!
     for text in ('sneaker', 'shoe', 'dunk'):
         if text in title:
-            # webhook_urls.append(
-            #     'https://discord.com/api/webhooks/1019663978621837402/'
-            #     'QsbnlzUJVDLT7VJgvvz7w-f_y88RVeWjbV4WbHfUk4L95RPiYdzLXicDcre37cSDugAe'
-            # )
+            webhook_urls.append(
+                'https://discord.com/api/webhooks/1019663978621837402/'
+                'QsbnlzUJVDLT7VJgvvz7w-f_y88RVeWjbV4WbHfUk4L95RPiYdzLXicDcre37cSDugAe'
+            )
             break
 
 
