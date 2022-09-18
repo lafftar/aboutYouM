@@ -104,9 +104,8 @@ class DBCrawler(Test, ReqSender):
                 }
             )
 
-            resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(
-                'http://thescrapingbook:zv1WIZKndCvriyM6@proxy.packetstream.io:31112'
-            )))
+            resp = await self.send_req(req=req, client=httpx.AsyncClient(
+                proxies=r'http://thescrapingbook:zv1WIZKndCvriyM6@proxy.packetstream.io:31112'))
 
             if not resp or resp.status_code == 429:
                 continue
@@ -167,7 +166,6 @@ class DBCrawler(Test, ReqSender):
                     await sleep(10)
             except Exception:
                 self.log.exception('HUH!')
-                await sleep(60)
             finally:
                 await self.__aexit__(None, None, None)
 
