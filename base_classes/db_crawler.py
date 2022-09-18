@@ -167,6 +167,7 @@ class DBCrawler(Test, ReqSender):
                     await sleep(10)
             except Exception:
                 self.log.exception('HUH!')
+                await sleep(60)
             finally:
                 await self.__aexit__(None, None, None)
 
