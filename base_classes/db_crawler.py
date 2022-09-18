@@ -162,7 +162,7 @@ class DBCrawler(Test, ReqSender):
                     await self.refresh_pids()
                     self.current_page_num = 0
                     await self.fetch_all_products()
-                    await sleep(3)
+                    await sleep(10)
             except Exception:
                 self.log.exception('HUH!')
             finally:
