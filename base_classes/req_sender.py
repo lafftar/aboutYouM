@@ -79,7 +79,7 @@ class ReqSender(Test):
                 """
                 ReqSender.log.error(e)
                 await sleep(uniform(0.5, 2.2))
-        ReqSender.log.error(f'Tried to send request with METHOD [{req.method}] and URL [{req.url[:15]}...] '
+        ReqSender.log.error(f'Tried to send request with METHOD [{req.method}] and URL [{str(req.url)[:15]}...] '
                             f'{num_tries} times.')
 
     async def handle_antibot(self) -> list:
