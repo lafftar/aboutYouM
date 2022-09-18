@@ -82,35 +82,37 @@ class DBCrawler(Test, ReqSender):
             self.current_page_num += 1
             self.log.debug(f'Fetching page #{this_task_page_num}.')
 
-        params = {
-            "ids": self.pids,
-            "with": "attributes:key(name|brand|colorDetail|vendorSize),variants,price,"
-                    "variants.attributes:key(vendorSize),priceRange",
-            "page": f"{self.current_page_num}",
-            "perPage": f"{self.amt_of_prods_per_page}",
-            "forceNonLegacySuffix": "true",
-            "shopId": f"{self.shop_id}"
-        }
-
-        # grab the first page
-        req = httpx.Request(
-            method="GET",
-            url="https://api-cloud.aboutyou.de/v1/products",
-            params=params,
-            headers={
-                'HOST': 'api-cloud.aboutyou.de'
+        max_pids = 150  # literally cant send more because of 414 @todo - check if it takes json
+        for pids in [self.pids[x:x+max_pids] for x in range(0, len(self.pids), max_pids)]:
+            params = {
+                "ids": ','.join(pids),
+                "with": "attributes:key(name|brand|colorDetail|vendorSize),variants,price,"
+                        "variants.attributes:key(vendorSize),priceRange",
+                "page": f"{self.current_page_num}",
+                "perPage": f"{self.amt_of_prods_per_page}",
+                "forceNonLegacySuffix": "true",
+                "shopId": f"{self.shop_id}"
             }
-        )
 
-        resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(self.dcs)))
+            # grab the first page
+            req = httpx.Request(
+                method="GET",
+                url="https://api-cloud.aboutyou.de/v1/products",
+                params=params,
+                headers={
+                    'HOST': 'api-cloud.aboutyou.de'
+                }
+            )
 
-        try:
-            _json = resp.json()
-        except JSONDecodeError:
-            print_req_info(resp, True, False)
-            return
+            resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(self.dcs)))
 
-        await self.parse_products(entities=_json.get('entities'))
+            try:
+                _json = resp.json()
+            except JSONDecodeError:
+                print_req_info(resp, True, False)
+                return
+
+            await self.parse_products(entities=_json.get('entities'))
 
         return
 
