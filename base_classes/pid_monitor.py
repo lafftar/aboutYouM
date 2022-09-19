@@ -3,6 +3,7 @@ from asyncio import sleep, Semaphore
 from json import dumps, JSONDecodeError
 from pprint import pprint
 from random import randint, choice
+from time import time
 
 import httpx
 
@@ -54,9 +55,10 @@ class DBCrawler(Test, ReqSender):
         with open(f'{get_project_root()}/program_data/pids.txt') as file:
             _pids = [int(line.strip()) for line in file.readlines()]
         self.pids = [str(item) for item in set(pids + _pids)]
-        self.log.fmt = f'[DB CRAWLER] [{self.shop_id}] [{len(self.pids)}]'
+        self.log.fmt = f'[DB CRAWLER] [{self.shop_id}] [{len(self.pids)}]'.rjust(35)
 
-    async def parse_products(self, entities: dict) -> list[Product]:
+    @staticmethod
+    async def parse_products(entities: dict) -> list[Product]:
         """
         entities: json of product page
         """
@@ -73,79 +75,55 @@ class DBCrawler(Test, ReqSender):
 
         return products
 
-    async def fetch_product(self):
+    async def fetch_150_pids(self, pids: list[str]):
         """
         This has the byproduct of updating/adding the product to our db.
         """
-        async with self.sem:
-            this_task_page_num = self.current_page_num
-            self.current_page_num += 1
-            self.log.debug(f'Fetching page #{this_task_page_num}.')
+        params = {
+            "ids": ','.join(pids),
+            "with": "attributes:key(name|brand|colorDetail|vendorSize),variants,price,"
+                    "variants.attributes:key(vendorSize),priceRange",
+            "page": "1",
+            "perPage": "1000",
+            "forceNonLegacySuffix": "true",
+            "shopId": f"{self.shop_id}"
+        }
 
-        max_pids = 150  # literally cant send more than 150 because of 414 @todo - check if it takes json
-        for pids in [self.pids[x:x+max_pids] for x in range(0, len(self.pids), max_pids)]:
-            params = {
-                "ids": ','.join(pids),
-                "with": "attributes:key(name|brand|colorDetail|vendorSize),variants,price,"
-                        "variants.attributes:key(vendorSize),priceRange",
-                "page": f"{self.current_page_num}",
-                "perPage": f"{self.amt_of_prods_per_page}",
-                "forceNonLegacySuffix": "true",
-                "shopId": f"{self.shop_id}"
+        # send the req
+        req = httpx.Request(
+            method="GET",
+            url="https://api-cloud.aboutyou.de/v1/products",
+            params=params,
+            headers={
+                'HOST': 'api-cloud.aboutyou.de'
             }
+        )
 
-            # grab the first page
-            req = httpx.Request(
-                method="GET",
-                url="https://api-cloud.aboutyou.de/v1/products",
-                params=params,
-                headers={
-                    'HOST': 'api-cloud.aboutyou.de'
-                }
-            )
+        resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=await self.good_proxy))
 
-            resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=choice(self.dcs)))
+        # error handle
+        if not resp or resp.status_code == 429:
+            self.log.error('429.')
+            return
 
-            if not resp or resp.status_code == 429:
-                continue
+        try:
+            _json = resp.json()
+        except JSONDecodeError:
+            print_req_info(resp, True, False)
+            return
 
-            try:
-                _json = resp.json()
-            except JSONDecodeError:
-                print_req_info(resp, True, False)
-                return
-
-            await self.parse_products(entities=_json.get('entities'))
+        await self.parse_products(entities=_json.get('entities'))
 
         return
 
-    async def fetch_all_products(self):
-        # eventually launch resilient tasks in the same event loop, hopefully pull and update all product in like,
-        # a second.
-        # @todo
-
-        await self.fetch_product()
-
-        # print task info
-        _pagination_dict: dict = self.resp.json().get('pagination')
-        pagination = ''.join(
-            [
-                f'\t\t{key.ljust(15)}: {val}\n'
-                for key, val in _pagination_dict.items()
-            ]
-        )
-        self.log.debug('\n\n'
-                       '\t[[ PAGINATION ]]\n\n'
-                       f'{pagination}\n'
-                       f'\n'
-                       f'\t[[ FETCHING {_pagination_dict.get("last")} PAGES. '
-                       f'FOUND {_pagination_dict.get("total")} PRODUCTS ]]\n'
-                       f'\n')
-
-        # no horror while loops 😭
-        await asyncio.gather(*[self.fetch_product() for _ in range(_pagination_dict.get('last') + 1)])
-        await sleep(0.3)
-        print()
+    async def fetch_all_pids(self):
+        max_pids = 150  # literally cant send more than 150 because of 414 @todo - check if it takes json
+        await asyncio.gather(*
+                             [
+                                 self.fetch_150_pids(pids=pids)
+                                 for pids in [self.pids[x:x + max_pids] for x in range(0, len(self.pids), max_pids)]
+                             ]
+                             )
 
     async def run(self):
         """
@@ -154,19 +132,38 @@ class DBCrawler(Test, ReqSender):
         20345 - cat id
         692 - shop id
         """
+        self.log.info('STARTED PID MONITOR.')
         while True:
             try:
                 await self.__aenter__()
 
                 while True:
-                    await self.refresh_pids()
-                    self.current_page_num = 0
-                    await self.fetch_all_products()
-                    await sleep(10)
+                    with Timer() as timer:
+                        await self.refresh_pids()
+                        self.current_page_num = 0
+                        await self.fetch_all_pids()
+                    self.log.info('\n\n\n'
+                                  f'{"[CHECKED]".rjust(35)}: {len(self.pids)}\n'
+                                  f'{"[TOOK]".rjust(35)}: {timer.time_took}\n\n')
+                    await sleep(3)
+                    self.log.info(f'NEXT CYCLE.')
             except Exception:
                 self.log.exception('HUH!')
             finally:
                 await self.__aexit__(None, None, None)
+
+
+class Timer:
+    def __init__(self):
+        self.t1 = 0
+        self.time_took = 0
+
+    def __enter__(self):
+        self.t1 = time()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.time_took = f'{time() - self.t1:.2f}s'
 
 
 # Testing

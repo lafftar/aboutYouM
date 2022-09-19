@@ -78,6 +78,10 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
     old_product = Product.from_json(old_product_json)
     new_product = Product.from_json(new_product_json)
 
+    # return if no variants have stock
+    if not any((variant.stock for variant in new_product.variants.values())):
+        return
+
     # detect new and removed variants
     new_variants = new_product.variants.keys() - old_product.variants.keys()
     if new_variants:
@@ -120,3 +124,7 @@ async def ping_updated_product(old_product_json: dict, new_product_json: dict):
     await _send_webhook(new_product, webhook_urls, 'Restock!', description)
 
     log.debug(f'Restocked Product -  {color_wrap(new_product.title)}')
+
+
+if __name__ == "__main__":
+    pass

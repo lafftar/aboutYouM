@@ -1,12 +1,14 @@
 import asyncio
 from asyncio import sleep
-from random import uniform
+from random import uniform, choice
 
+import aiohttp
 import httpx
+from aiohttp import BaseConnector, ClientTimeout, ClientProxyConnectionError
 
 from utils.custom_logger import Log
 from utils.root import get_project_root
-from utils.structs import GlobalNetworkState
+from utils.structs import GlobalNetworkState, Proxy
 from utils.tools import print_req_info
 
 
@@ -29,30 +31,50 @@ class Test:
 
 # Central Request Handler. All requests should go through this.
 class ReqSender(Test):
+    timeout: int = 2.5
     log: Log = Log('[REQ SENDER]', do_update_title=False)
     network_state: GlobalNetworkState = GlobalNetworkState()
 
     with open(f'{get_project_root()}/program_data/proxies.txt') as file:
-        _proxies = [line.strip() for line in file.readlines()]
-    dcs = []
-    for proxy in _proxies:
-        proxy = proxy.split(':')
-        dcs.append(f'http://{proxy[2]}:{proxy[3]}@{proxy[0]}:{proxy[1]}')
+        dcs = [Proxy(line.strip()) for line in file.readlines()]
 
     def __init__(self):
         self.client: httpx.AsyncClient | None = None
+        self.client_: aiohttp.ClientSession | None = None
         self.req: httpx.Request | None = None
         self.resp: httpx.Response | None = None
 
     # these should be the only way this class is used. fail gracefully otherwise.
     async def __aenter__(self):
         self.client = httpx.AsyncClient(
-            verify=False
+            verify=False,
+            timeout=self.timeout
+        )
+
+        # using this to do odd things like test proxies. encountered unreliable dcs'
+        self.client_ = aiohttp.ClientSession(
+            trust_env=True,
+            timeout=ClientTimeout(self.timeout)
         )
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self.client.aclose()
+        await self.client_.close()
+
+    @property
+    async def good_proxy(self) -> str:
+        for _ in range(10):
+            proxy = str(choice(self.dcs))
+            try:
+                await self.client_.get('http://api.ipify.org', proxy=proxy)
+                return proxy
+            except (ClientProxyConnectionError, TimeoutError):
+                continue
+            except Exception as e:
+                self.log.error(f'Error while checking proxy - {repr(e)}')
+
+        raise Exception("Could not find good proxy after 10 tries!")
 
     @staticmethod
     async def send_httpx_req(c: httpx.AsyncClient, req: httpx.Request, num_tries: int = 5) -> \

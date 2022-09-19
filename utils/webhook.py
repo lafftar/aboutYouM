@@ -1,21 +1,30 @@
 import asyncio
 import aiohttp
 from asyncio import sleep
-from discord import Colour, Embed, Webhook
+from discord import Colour, Embed, Webhook, File
+from discord.abc import MISSING
 
 from utils.custom_logger import logger
 
 
-async def send_webhook(embed_dict: dict = None, embed: Embed = None, title: str = '',
-                       webhook_url: str = None, color: Colour = None,
-                       title_link='https://discord.com'):
+async def send_webhook(
+        file: File = MISSING,
+        content: str = '',
+        embed_dict: dict = None,
+        embed: Embed = None, title: str = '',
+        webhook_url: str = None,
+        color: Colour = None,
+        title_link='https://discord.com'
+):
+
+    # ez defaults
     if not color:
         color = Colour.dark_red()
     if not webhook_url:
-        webhook_url = 'https://discord.com/api/webhooks/989659295421440081/' \
-                      'NqQqUz4kA4LL_mW9FBnNZSAO_XlktmyKrPDmhtzUqsqCr-brcc0ExU_A3vm1Dlf56_Bu'
+        webhook_url = 'https://discord.com/api/webhooks/927893447808008273' \
+                      '/UlFfNapvHqzB2z4D_D_RPXgXRmRufwOcKTO3zZ6UaI8T-_mPQQx4UbaaIy6xTgIN_-eY'
 
-    if not embed:
+    if not embed and embed_dict:
         # create embed
         embed = Embed(title=title, color=color, url=title_link)
         embed.set_footer(text='WINX4 Bots - winwinwinwin#0001',
@@ -34,6 +43,8 @@ async def send_webhook(embed_dict: dict = None, embed: Embed = None, title: str 
                                    avatar_url=
                                    'https://i.pinimg.com/originals/2f/08/ab/2f08ab311cb92ed2cfafc691b12a8ce2.jpg',
                                    embed=embed,
+                                   content=content,
+                                   file=file
                                    )
             break
         except Exception:

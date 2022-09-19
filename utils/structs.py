@@ -1,7 +1,11 @@
+import asyncio
 import re
 from dataclasses import dataclass
 
 from discord import Embed
+
+from utils.custom_logger import Log
+from utils.exceptions import PingException
 
 
 @dataclass
@@ -98,3 +102,52 @@ class Product:
             embed.add_field(name=f'[{variant.title}] [{variant.stock}]', inline=True,
                             value=f'[ATC](https://google.com)')
         return embed
+
+
+class Proxy:
+    log: Log = Log('[PROXY]', do_update_title=False)
+
+    def __init__(
+            self,
+            from_: str,
+            host: str = "",
+            port: str = "",
+            username: str = '',
+            password: str = '',
+            protocol: str = 'http'
+    ):
+        if not from_.strip(): self.panic()
+        if not any([from_, port, host]): self.panic()
+
+        if not from_:
+            self.host: str = host
+            self.port: str = port
+            self.username: str = username
+            self.password: str = password
+        elif from_:
+            from_ = from_.split(':')
+            if len(from_) == 2:
+                self.host = from_[0]
+                self.port = from_[1]
+            elif len(from_) == 4:
+                self.host = from_[0]
+                self.port = from_[1]
+                self.username = from_[2]
+                self.password = from_[3]
+        else:
+            self.panic()
+        self.protocol: str = protocol
+
+    def __str__(self) -> str:
+        if self.password:
+            return f'{self.protocol}://{self.username}:{self.password}@{self.host}:{self.port}'
+        return f'{self.protocol}://{self.host}:{self.port}'
+
+    @staticmethod
+    def panic():
+        msg = f"Instantiation Data Not Valid."
+        raise Exception(msg)
+
+
+if __name__ == "__main__":
+    print(Proxy(from_="46.37.115.52:11689:004769739:wifp3shx"))
