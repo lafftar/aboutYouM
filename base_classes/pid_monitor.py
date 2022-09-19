@@ -175,7 +175,7 @@ class DBCrawler(Test, ReqSender):
                                   f'{"[AVG CACHE AGE]".rjust(35)}: {avg_cache_age:.2f}s\n'
                                   f'{"[CACHE HIT %]".rjust(35)}: {hits:.2f}%\n'
                                   f'{"[TOOK]".rjust(35)}: {timer.time_took}\n\n')
-                    await sleep(3)
+                    await sleep(10)
                     self.log.info(f'NEXT CYCLE.')
             except Exception:
                 self.log.exception('HUH!')
