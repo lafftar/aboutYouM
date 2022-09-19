@@ -26,14 +26,14 @@ class Test:
     log: Log = Log('[TEST]', do_update_title=False)
 
     async def test(self):
-        async with DBCrawler() as db_crawler:
-            db_crawler: DBCrawler
+        async with PIDMonitor() as db_crawler:
+            db_crawler: PIDMonitor
             await db_crawler.run()  # this will raise if not good.
         self.log.info('[TEST GOOD]')
 
 
 # this will inherit from the abstract classes that make all this possible (shouts to our silent heros 💗💙💚)
-class DBCrawler(Test, ReqSender):
+class PIDMonitor(Test, ReqSender):
     """
     There should really only ever be 1 obj of this class per shopId.
     """
@@ -45,7 +45,7 @@ class DBCrawler(Test, ReqSender):
         self.current_page_num: int = 0
         self.amt_of_prods_per_page: int = 1000
         self.shop_id: int = 692
-        self.log: Log = Log(f'[DB CRAWLER] [{self.shop_id}]', do_update_title=False)
+        self.log: Log = Log(f'[PID MONITOR] [{self.shop_id}]', do_update_title=False)
         self.pids: list = []
 
     async def refresh_pids(self):
@@ -58,7 +58,7 @@ class DBCrawler(Test, ReqSender):
         with open(f'{get_project_root()}/program_data/pids.txt') as file:
             _pids = [int(line.strip()) for line in file.readlines()]
         self.pids = [str(item) for item in set(pids + _pids)]
-        self.log.fmt = f'[DB CRAWLER] [{self.shop_id}] [{len(self.pids)}]'.rjust(35)
+        self.log.fmt = f'[PID MONITOR] [{self.shop_id}] [{len(self.pids)}]'.rjust(35)
         self.log.debug(f'{color_wrap("Refreshed PIDs")}')
 
     @staticmethod
@@ -186,6 +186,6 @@ class DBCrawler(Test, ReqSender):
 
 # Testing
 if __name__ == "__main__":
-    asyncio.run(DBCrawler().run())
+    asyncio.run(PIDMonitor().run())
     # import cProfile
     # cProfile.run("asyncio.run(DBCrawler().run())")
