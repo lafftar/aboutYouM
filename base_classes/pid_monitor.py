@@ -2,7 +2,7 @@ import asyncio
 from asyncio import sleep, Semaphore
 from json import dumps, JSONDecodeError
 from pprint import pprint
-from random import randint, choice
+from random import randint, choice, shuffle
 from statistics import mean
 from time import time
 
@@ -58,6 +58,7 @@ class PIDMonitor(Test, ReqSender):
         with open(f'{get_project_root()}/program_data/pids.txt') as file:
             _pids = [int(line.strip()) for line in file.readlines()]
         self.pids = [str(item) for item in set(pids + _pids)]
+        shuffle(self.pids)
         self.log.fmt = f'[PID MONITOR] [{self.shop_id}] [{len(self.pids)}]'.rjust(35)
         self.log.debug(f'{color_wrap("Refreshed PIDs")}')
 
