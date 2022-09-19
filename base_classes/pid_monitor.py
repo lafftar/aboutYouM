@@ -90,7 +90,8 @@ class DBCrawler(Test, ReqSender):
             "page": "1",
             "perPage": "1000",
             "forceNonLegacySuffix": "true",
-            "shopId": f"{self.shop_id}"
+            # "shopId": f"{self.shop_id}",
+            # "cacheBreaker": f"{randint(0, 10_000)}"
         }
 
         # send the req
