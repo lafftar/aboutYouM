@@ -3,16 +3,19 @@ from asyncio import sleep, Semaphore
 from json import dumps, JSONDecodeError
 from pprint import pprint
 from random import randint, choice
+from statistics import mean
 from time import time
 
 import httpx
+from colorama import Fore
 
 from base_classes.req_sender import ReqSender
 from db.db_fx import DB
 from db.tables import Product
 from utils.custom_logger import Log
 from utils.root import get_project_root
-from utils.tools import print_req_info
+from utils.terminal import color_wrap
+from utils.tools import print_req_info, Timer
 
 
 class Test:
@@ -56,6 +59,7 @@ class DBCrawler(Test, ReqSender):
             _pids = [int(line.strip()) for line in file.readlines()]
         self.pids = [str(item) for item in set(pids + _pids)]
         self.log.fmt = f'[DB CRAWLER] [{self.shop_id}] [{len(self.pids)}]'.rjust(35)
+        self.log.debug(f'{color_wrap("Refreshed PIDs")}')
 
     @staticmethod
     async def parse_products(entities: dict) -> list[Product]:
@@ -75,7 +79,7 @@ class DBCrawler(Test, ReqSender):
 
         return products
 
-    async def fetch_150_pids(self, pids: list[str]):
+    async def fetch_150_pids(self, pids: list[str]) -> tuple | None:
         """
         This has the byproduct of updating/adding the product to our db.
         """
@@ -99,7 +103,8 @@ class DBCrawler(Test, ReqSender):
             }
         )
 
-        resp = await self.send_req(req=req, client=httpx.AsyncClient(proxies=await self.good_proxy))
+        async with httpx.AsyncClient(proxies=await self.good_proxy) as c:
+            resp = await self.send_req(req=req, client=c)
 
         # error handle
         if not resp or resp.status_code == 429:
@@ -112,18 +117,40 @@ class DBCrawler(Test, ReqSender):
             print_req_info(resp, True, False)
             return
 
+        status = str(resp.status_code), \
+                     str(round(len(resp.content) / 1024)),\
+                     resp.headers.get("Age") or "0", \
+                     resp.headers.get("Cf-Cache-Status")
+        msg = color_wrap(', '.join(status), fore_color=Fore.LIGHTBLUE_EX)
+        self.log.debug(msg)
         await self.parse_products(entities=_json.get('entities'))
 
-        return
+        return status
 
-    async def fetch_all_pids(self):
+    async def fetch_all_pids(self) -> tuple:
         max_pids = 150  # literally cant send more than 150 because of 414 @todo - check if it takes json
-        await asyncio.gather(*
-                             [
+        tasks = [
                                  self.fetch_150_pids(pids=pids)
                                  for pids in [self.pids[x:x + max_pids] for x in range(0, len(self.pids), max_pids)]
                              ]
-                             )
+        statii = await asyncio.gather(*tasks)
+
+        hits = 0
+        cache_ages = []
+        for status in statii:
+            status_code, _, cache_age, cache_status = status
+            cache_ages.append(int(cache_age))
+            if cache_status == "HIT":
+                hits += 1
+
+        if hits:
+            hits = (hits * 100) / len(tasks)
+
+        avg_cache_age = 0
+        if cache_ages:
+            avg_cache_age = mean(cache_ages)
+
+        return hits, avg_cache_age, len(tasks)
 
     async def run(self):
         """
@@ -141,9 +168,12 @@ class DBCrawler(Test, ReqSender):
                     with Timer() as timer:
                         await self.refresh_pids()
                         self.current_page_num = 0
-                        await self.fetch_all_pids()
+                        hits, avg_cache_age, task_num = await self.fetch_all_pids()
                     self.log.info('\n\n\n'
-                                  f'{"[CHECKED]".rjust(35)}: {len(self.pids)}\n'
+                                  f'{"[PIDS]".rjust(35)}: {len(self.pids)}\n'
+                                  f'{"[TASKS]".rjust(35)}: {task_num}\n'
+                                  f'{"[AVG CACHE AGE]".rjust(35)}: {avg_cache_age:.2f}s\n'
+                                  f'{"[CACHE HIT %]".rjust(35)}: {hits:.2f}%\n'
                                   f'{"[TOOK]".rjust(35)}: {timer.time_took}\n\n')
                     await sleep(3)
                     self.log.info(f'NEXT CYCLE.')
@@ -151,19 +181,6 @@ class DBCrawler(Test, ReqSender):
                 self.log.exception('HUH!')
             finally:
                 await self.__aexit__(None, None, None)
-
-
-class Timer:
-    def __init__(self):
-        self.t1 = 0
-        self.time_took = 0
-
-    def __enter__(self):
-        self.t1 = time()
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.time_took = f'{time() - self.t1:.2f}s'
 
 
 # Testing

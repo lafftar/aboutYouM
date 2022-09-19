@@ -1,5 +1,6 @@
 from json import dumps, JSONDecodeError, loads
 from pprint import pformat
+from time import time
 from typing import Union
 
 import httpx
@@ -83,3 +84,16 @@ def print_req_info(res: httpx.Response, print_headers: bool = False, print_body:
     final += f'\n{boundary}'
     print(final)
     return final
+
+
+class Timer:
+    def __init__(self):
+        self.t1 = 0
+        self.time_took = 0
+
+    def __enter__(self):
+        self.t1 = time()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.time_took = f'{time() - self.t1:.2f}s'

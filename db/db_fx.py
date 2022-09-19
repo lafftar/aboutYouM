@@ -124,5 +124,5 @@ if __name__ == "__main__":
                 )
             )
         )
-
-    print(asyncio.run(DB.return_pids()))
+    from utils import structs
+    print(structs.Product.from_json(asyncio.run(DB.return_product(5671394)).dump))

@@ -72,6 +72,8 @@ class ReqSender(Test):
             except (ClientProxyConnectionError, TimeoutError):
                 continue
             except Exception as e:
+                if 'TimeoutError' in repr(e):
+                    continue
                 self.log.error(f'Error while checking proxy - {repr(e)}')
 
         raise Exception("Could not find good proxy after 10 tries!")
