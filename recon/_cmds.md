@@ -6,3 +6,4 @@ amass enum -src -ip -active -brute -d api-cloud.aboutyou.de >> output/amass_api-
 amass enum -src -ip -active -brute -d footlocker.id >> output/amass_footlocker.id
 amass enum -src -ip -active -brute -addr 8.215.25.252 >> output/amass_footlocker_origin.id
 amass intel -src -active -whois -ip -addr 8.215.25.252 >> output/amass_asn_aboutyou.de
+

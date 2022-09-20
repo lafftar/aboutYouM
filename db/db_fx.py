@@ -125,4 +125,4 @@ if __name__ == "__main__":
             )
         )
     from utils import structs
-    print(structs.Product.from_json(asyncio.run(DB.return_product(5671394)).dump))
+    print(structs.Product.from_json(asyncio.run(DB.return_product(8659147)).dump))

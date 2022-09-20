@@ -140,6 +140,8 @@ class PIDMonitor(Test, ReqSender):
         hits = 0
         cache_ages = []
         for status in statii:
+            if not status:
+                continue
             status_code, _, cache_age, cache_status = status
             cache_ages.append(int(cache_age))
             if cache_status == "HIT":
