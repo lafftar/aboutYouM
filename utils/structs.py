@@ -1,11 +1,10 @@
-import asyncio
 import re
 from dataclasses import dataclass
+from typing import ClassVar
 
 from discord import Embed
 
 from utils.custom_logger import Log
-from utils.exceptions import PingException
 
 
 @dataclass
@@ -24,7 +23,11 @@ class Variant:
     vid: int
     title: str
     stock: int
-    atc_link: str = ''
+    variants: ClassVar
+
+    def __repr__(self) -> str:
+        return '[' + ''.join((f'[{key}:  {val}]' for key, val in vars(self).items()
+                                 if not key.startswith('_'))) + ']'
 
     @staticmethod
     def from_json(list_of_dicts: list[dict]):
@@ -57,9 +60,22 @@ class Product:
     price: float
     currency: str
 
+    @property
+    def stock(self) -> int:
+        return sum(
+            [variant.stock for variant in self.variants.values()]
+        )
+
+    @property
+    def num_variants(self) -> int:
+        return len(self.variants)
+
     def __repr__(self) -> str:
-        return '\n' + '\n'.join((f'{key:30s}:  {val}' for key, val in vars(self).items()
-                                 if not key.startswith('_'))) + '\n'
+        prod = '\n'.join((f'{key:30s}:  {val}' for key, val in vars(self).items()
+                                 if not key.startswith('_')))
+        stock = '\n' + f'{"stock":30s}:  {self.stock}'
+        num_variants = '\n' + f'{"num_variants":30s}:  {self.num_variants}'
+        return '\n' + prod + stock + num_variants + '\n'
 
     @staticmethod
     def from_json(_dict: dict):
@@ -96,11 +112,16 @@ class Product:
 
         # dynamic embed fields
         # embed.add_field(name='[TITLE] [STOCK]', inline=False, value='[ATC LINK]')
+
+        out = ''
         for variant in self.variants.values():
             if variant.stock == 0:
                 continue
-            embed.add_field(name=f'[{variant.title}] [{variant.stock}]', inline=True,
-                            value=f'[ATC](https://google.com)')
+            out += f'\n[{variant.title.strip()}]:  [{variant.stock}]'
+
+        out += f'\n\nTotal Stock:  [{self.stock}]'
+        embed.add_field(name='Variants', inline=False,
+                        value=out)
         return embed
 
 

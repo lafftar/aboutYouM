@@ -12,7 +12,8 @@ from colorama import Fore
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import Session, sessionmaker
 
-from base_classes.pinger import ping_new_product, ping_updated_product
+from base_pinger.pinger import ping_new_product
+from base_pinger.updated_product import ping_updated_product
 from db.base import MainDB
 from db.tables import Product
 from utils.custom_logger import Log
@@ -61,9 +62,14 @@ class DB:
                         # )
                         pass
                     else:
+                        # @todo turn this back on pls
                         product_in_db.update_from_dict(product.to_dict())
                         resp = 'UPDATED'
                         log.debug(color_wrap(Fore.LIGHTMAGENTA_EX + f'Updated {product.pid} in db.'))
+
+                        # @todo
+                        # add create task to add what changes were noticed to the `changes` key in the `product_changes`
+                        # table. hopefully just call .diff() with the struct.Product dataclass
                 else:
                     short_session.add(product)
                     resp = 'NEW'
@@ -112,10 +118,11 @@ class DB:
 if __name__ == "__main__":
     from random import randint
 
+
     def test_update_product():
-        pid = 5918925
+        pid = 8610865
         prod = asyncio.run(DB.return_product(pid))
-        prod.dump['variants'][0]['stock']['quantity'] = randint(1, 100)
+        prod.dump['variants'][0]['stock']['quantity'] = randint(1, 10)
         asyncio.run(
             DB.update_product(
                 product=Product(
@@ -126,6 +133,9 @@ if __name__ == "__main__":
         )
 
 
-    # return a pid from the db, pretty print it with our struct.Product class
-    from utils import structs
-    print(structs.Product.from_json(asyncio.run(DB.return_product(8610865)).dump))
+    def test_return_product():
+        # return a pid from the db, pretty print it with our struct.Product class
+        from utils import structs
+        print(structs.Product.from_json(asyncio.run(DB.return_product(8610865)).dump))
+
+    test_update_product()

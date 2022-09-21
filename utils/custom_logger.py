@@ -6,7 +6,6 @@ from os import makedirs
 from utils.root import get_project_root
 from utils.terminal import update_title
 
-
 LOGGING_LEVEL = logging.DEBUG  # @todo - change this in production to .INFO, maybe
 
 
@@ -37,7 +36,7 @@ class CustomFormatter(logging.Formatter):
     reset = "\x1b[0m"
     green = "\u001b[32m"
     bright_magenta = "\u001b[35;1m"
-    format = "[%(asctime)s] %(message)s"
+    format = u"[%(asctime)s] %(message)s"
 
     FORMATS = {
         logging.DEBUG: bright_magenta + format + reset,
@@ -63,17 +62,21 @@ def logger(error_logs_path: str = 'logs/error_logs',
     # creating handlers
     stream_handler = logging.StreamHandler()
     if time_based_logs:
+        # make handlers
         error_handler = logging.FileHandler(
             f'error_logs/logs_{datetime.now().strftime("%m-%d-%Y - %H_%M_%S_%f")[:-3]}'
-            f'.log')
+            f'.log', encoding="utf-8")
         file_handler = logging.FileHandler(
-            f'logs/logs_{datetime.now().strftime("%m-%d-%Y - %H_%M_%S_%f")[:-3]}.log')
+            f'logs/logs_{datetime.now().strftime("%m-%d-%Y - %H_%M_%S_%f")[:-3]}.log', encoding="utf-8")
     else:
+        # make default err paths
         makedirs(fr'{get_project_root()}/{error_logs_path}', exist_ok=True)
-        error_handler = logging.FileHandler(
-            fr'{get_project_root()}/{error_logs_path}/just_errors.log')
         makedirs(fr'{get_project_root()}/{all_logs_path}', exist_ok=True)
-        file_handler = logging.FileHandler(fr'{get_project_root()}/{all_logs_path}/all.log')
+
+        # make handlers
+        error_handler = logging.FileHandler(
+            fr'{get_project_root()}/{error_logs_path}/just_errors.log', encoding="utf-8")
+        file_handler = logging.FileHandler(fr'{get_project_root()}/{all_logs_path}/all.log', encoding="utf-8")
 
     stream_handler.setLevel(LOGGING_LEVEL)  # this should be on .INFO level for production
     error_handler.setLevel(logging.ERROR)
