@@ -1,10 +1,8 @@
 import asyncio
 from asyncio import sleep, Semaphore
-from json import dumps, JSONDecodeError
-from pprint import pprint
-from random import randint, choice, shuffle
+from json import JSONDecodeError
+from random import shuffle
 from statistics import mean
-from time import time
 
 import httpx
 from colorama import Fore
@@ -104,7 +102,6 @@ class PIDMonitor(Test, ReqSender):
                 'HOST': 'api-cloud.aboutyou.de'
             }
         )
-
         async with httpx.AsyncClient(proxies=await self.good_proxy) as c:
             resp = await self.send_req(req=req, client=c)
 

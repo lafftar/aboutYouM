@@ -124,5 +124,9 @@ if __name__ == "__main__":
                 )
             )
         )
+
+
+    # return a pid from the db, pretty print it with our struct.Product class
     from utils import structs
-    print(structs.Product.from_json(asyncio.run(DB.return_product(5671394)).dump))
+
+    print(structs.Product.from_json(asyncio.run(DB.return_product(8610865)).dump))
